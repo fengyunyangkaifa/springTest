@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usian.mapper.TeacherMapper">
+
+    <select id="findAll" resultMap="emp1">
+        select teacher.id tid,teacher.*,s.*,s.name sName from teacher join student s on teacher.id = s.tid where s.tid=#{id}
+    </select>
+    <resultMap id="emp1" type="com.usian.pojo.Teacher" autoMapping="true">
+        <id column="id" property="tid"></id>
+        <collection property="studentList" ofType="com.usian.pojo.Student" autoMapping="true">
+            <id column="id" property="id"></id>
+        </collection>
+    </resultMap>
+</mapper>

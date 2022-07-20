@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.usian.mapper.StudentMapper">
+<insert id="add">
+   insert into student value
+<foreach collection="studentList" item="s" separator=",">
+    (null,#{s.sName},#{s.age},#{s.hobby},#{s.birthday},#{id})
+</foreach>
+</insert>
+    <select id="findAll" resultMap="emp1">
+        select s.tid,s.name sName,s.*,teacher.* from student s join teacher on teacher.id = s.tid where s.id=#{id}
+    </select>
+    <resultMap id="emp1" type="com.usian.pojo.Student" autoMapping="true">
+        <id column="id" property="id"></id>
+        <association property="teacher" javaType="com.usian.pojo.Teacher" autoMapping="true">
+            <id column="tid" property="tid"></id>
+        </association>
+    </resultMap>
+</mapper>
